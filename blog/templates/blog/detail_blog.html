@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+<div>
+<img src="{{ blog_post.image.url }}" width="20" height="20"><h3>{{ blog_post.title }}</h3>
+{% if request.user == blog_post.author %}
+<a href="{% url 'blog:edit' blog_post.slug %}">Update Post</a>
+{% endif %}
+<h5>By {{ blog_post.author }} | {{ blog_post.date_published }} </h5>
+<p>{{ blog_post.body|safe|linebreaks }}</p>
+<br>
+<p>Views: {{ blog_post.views }}</p>
+<br>
+<a href="{% url 'blog:like' blog_post.slug %}">Like</a>
+<p>Likes: {{ blog_post.likes }}</p>
+</div>
+
+
+
+{% endblock content %}

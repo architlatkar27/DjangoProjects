@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Update your Blog</h2>
+<form method="POST">
+    {% csrf_token %}
+    {% for field in update_form %}
+    <p>
+        {{ field.label }}
+        {{ field }}
+        {% if field.help_text %}
+        <small style="color: rgb(148, 147, 147);">{{ field.help_text }}</small>
+        {% endif %}
+        {% for errors in field.errors %}
+        <small style="color:red;">{{ error }}</small>
+        {% endfor %}
+    </p>
+    {% endfor %}
+    {% if update_form.non_field_errors %}
+        <small style="color: red;">{{ update_form.non_field_errors }}</small>
+    {% endif %}
+    {% if success_message %}
+    <p style="color: green;">{{ success_message }}</p>
+    {% endif %}
+    <button type="submit">Update My Blog</button>
+</form>
+
+{% endblock content %}

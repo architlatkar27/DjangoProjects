@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Update Account Details</h1>
+<form method="POST">
+    {% csrf_token %}
+    {% for f in account_form %}
+        <p>
+            {{ f.label }}
+            {{f}}
+            {% if f.help_text %}
+                <small style="color:grey;">{{f.help_text}}</small>
+            {% endif %}
+            {% for error in f.errors %}
+                <p style="color:red;">{{error}}</p>
+            {% endfor %}
+        </p>
+    {% endfor %}
+    {% if account_form.non_field_errors %}
+        <p style="color:red;">{{ account_form.non_field_errors }}</p>
+    {% endif %}
+    <button type="submit">Update</button>
+</form>
+<a href="{% url 'password_change' %}">Change Password</a>
+
+<div class="container mt-4 p-4">
+    <hr>   
+    <h3>Your Blogs</h3>
+    <hr>
+    {% if blog_posts %}
+    <ul>
+        {% for post in blog_posts %}
+        <a href="{% url 'blog:detail' post.slug %}">
+            <li>{{ post.title }}</li>
+        </a>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>You haven't posted anything yet.</p>
+        <a href="{% url 'blog:create' %}">Write your first blog</a>
+    {% endif %}
+</div>
+{% endblock content %}
