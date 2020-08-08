@@ -37,7 +37,7 @@ def pre_save_blog_post_reciever(sender,instance,*args,**kwargs):
         instance.slug = slugify(instance.author.username+"-"+instance.title)
 
 pre_save.connect(pre_save_blog_post_reciever,sender=BlogPost)
-    
+   
 class Like(models.Model):
     objects         = models.Manager()
     user            = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)

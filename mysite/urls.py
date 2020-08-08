@@ -54,6 +54,13 @@ urlpatterns = [
     
     path('reset/done/', auth_views.PasswordResetCompleteView.as_view(template_name='registration/password_reset_complete.html'),
      name='password_reset_complete'),
+
+    #REST FRAMEWORK
+    path('api/blog/',include('blog.api.urls','blog_api')),
+    path('api/account/',include('account.api.urls','account_api'))
+
+    
+
 ]
 
 if settings.DEBUG:
